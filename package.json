@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "start:debug": "node --inspect=0.0.0.0:9229 --inspect-brk server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,5 +26,8 @@
   "homepage": "https://github.com/frandiox/medium-json-feed#readme",
   "engines": {
     "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "rss-to-json": "https://github.com/engrjabi/rss-to-json"
   }
 }
