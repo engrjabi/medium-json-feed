@@ -42,18 +42,24 @@ module.exports = async (endpoint = '/', callback) => {
       }
     }
 
-    const rssToJsonResponse = await new Promise(resolve => Feed.load(url, (err, rss) => resolve(rss), (rawObject) => {
-      return {
-        ...(rawObject['content:encoded'] && {
-          contentEncoded: rawObject['content:encoded'][0]
-        })
-      }
-    }))
+    const rssToJsonResponse = await new Promise((resolve, reject) => {
+      Feed.load(url,
+        (err, rss) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(rss)
+        }, (rawObject) => ({
+          ...(rawObject['content:encoded'] && {
+            contentEncoded: rawObject['content:encoded'][0]
+          })
+        }))
+    })
 
     jsonfile.writeFile(fileCacheLocation, rssToJsonResponse, err => err ? console.error(err) : console.log('Saved', fileCacheLocation))
 
     callback instanceof Function && callback({status: 200, response: rssToJsonResponse})
   } catch (err) {
-    callback instanceof Function && callback({status: err.statusCode || 500, response: {err}})
+    callback instanceof Function && callback({status: err.statusCode || 500, response: {message: err.message}})
   }
 }
