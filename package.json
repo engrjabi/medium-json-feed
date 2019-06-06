@@ -28,6 +28,8 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "rss-to-json": "https://github.com/engrjabi/rss-to-json"
+    "jsonfile": "^5.0.0",
+    "rss-to-json": "https://github.com/engrjabi/rss-to-json",
+    "stripchar": "^1.2.1"
   }
 }
