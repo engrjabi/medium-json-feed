@@ -8,7 +8,7 @@ const headers = {
 };
 
 http.createServer((req, res) => {
-  if (req.method !== 'GET' || ['/robots.txt', '/favicon.ico'].indexOf(req.url) !== -1) {
+  if (!['OPTIONS','GET'].includes(req.method) || ['/robots.txt', '/favicon.ico'].indexOf(req.url) !== -1) {
     res.writeHead(204);
     return res.end();
   }
